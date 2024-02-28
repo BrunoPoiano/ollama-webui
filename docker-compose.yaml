@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  ollama_chat_app:
+    build: .
+    container_name: ollama-chat-app
+    ports:
+      - "3000:5173"
+    command: npm run dev
+    volumes:
+      - ./vueapp:/usr/src/app
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - /ollama:/root/.ollama
+    restart: unless-stopped
+
+
