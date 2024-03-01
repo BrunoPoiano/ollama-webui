@@ -55,7 +55,7 @@ body {
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--neutral-color-75);
+  background: var(--neutral-color-70);
   color: var(--neutral-color-20);
 }
 
@@ -70,14 +70,14 @@ code {
     monospace;
 }
 
-header{
+header {
   max-width: 130ch;
 }
 
 main {
-  padding: 2rem 1.5rem;
+  padding: 0 1.5rem;
   display: grid;
-  place-items:center;
+  place-items: center;
   gap: 20px;
   max-width: 110ch;
   width: 100%;
@@ -119,26 +119,45 @@ small {
   color: var(--neutral-color-10);
 }
 
+dialog {
+  padding: 20px;
+  border-radius: var(--border-radius);
+  border: none;
+  margin: auto;
 
-button{
+  max-width: 30rem;
+  width: 100%;
+
+  background-color: var(--neutral-color-80);
+  -webkit-box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
+  -moz-box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
+  box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
+}
+
+button {
   min-width: 60px;
   width: fit-content;
   height: fit-content;
   padding: 8px 10px;
   cursor: pointer;
-  
+
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--neutral-color-20);
+  background: var(--neutral-color-60);
 
   border-radius: var(--border-radius);
-  border:none;
+  border: none;
   outline: none;
 
   transition: all 200ms ease;
 
-  &:hover{
+  &:hover:not(:disabled) {
     scale: 1.2;
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 }
 
@@ -149,7 +168,7 @@ select {
   max-width: 50ch;
   width: 100%;
   padding: 10px 15px;
-  
+
   font-size: var(--font-size-sm);
   font-weight: 600;
   cursor: pointer;
@@ -163,13 +182,14 @@ select {
   background: var(--background-color);
   color: var(--neutral-color-40);
 
-  & option{
-    margin-bottom: 5px ;
+  & option {
+    margin-bottom: 5px;
   }
 
 }
 
-input, textarea {
+input,
+textarea {
 
   --background-color: var(--neutral-color-85);
 
