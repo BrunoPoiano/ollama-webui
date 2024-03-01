@@ -36,11 +36,11 @@ const chat = async () => {
 
   const form = [
     {
-      role: "user",
+      role: "You",
       message: prompt.value,
     },
     {
-      role: "ollama",
+      role: `Ollama (${selectedModel.value})`,
       message: "",
     },
   ];

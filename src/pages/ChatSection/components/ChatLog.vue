@@ -2,7 +2,7 @@
   <section>
     <div class="messages" v-for="(chat, index) in content" :key="index">
       <h5 :data-user="chat.role == 'user'">
-        {{ chat.role == "user" ? "You:" : "Ollama:" }}
+        {{ chat.role }}
       </h5>
       <p style="white-space: pre-wrap">{{ chat.message }}</p>
     </div>
