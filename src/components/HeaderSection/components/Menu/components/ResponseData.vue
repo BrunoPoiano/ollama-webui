@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="responde-data">
     <h5>
       Last prompt data
     </h5>
@@ -56,4 +56,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.responde-data{
+  margin-top: auto;
+}
+</style>

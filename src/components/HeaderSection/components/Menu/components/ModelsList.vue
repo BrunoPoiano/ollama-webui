@@ -5,7 +5,9 @@
         {{ model.name }}
       </option>
     </select>
-    <button @click="ListModels">List</button>
+    <button @click="ListModels" :data-loading="loading">
+      <i class="fa fa-refresh" aria-hidden="true"></i>
+    </button>
   </div>
 </template>
 
@@ -15,12 +17,14 @@ import { onMounted, ref, defineEmits } from "vue";
 
 const emit = defineEmits(["selectedModelEmit"]);
 const models = ref([]);
-const selectedModel = ref("");
+const selectedModel = ref(localStorage.getItem("SELECTED_MODEL"));
+const loading = ref(false);
 
 const ListModels = async () => {
+  loading.value = true;
   const modelsList = await ollama.list();
-  selectedModel.value = modelsList.models[0].model
   models.value = modelsList.models;
+  loading.value = false;
 };
 
 const handleSelectedModel = () => {
@@ -39,5 +43,24 @@ onMounted(() => {
   justify-content: center;
   place-items: center;
   gap: 20px;
+
+  & button {
+    --width: 2rem;
+    font-size: 1.2rem;
+    padding: 0px;
+    width: var(--width);
+    min-width: var(--width);
+    aspect-ratio: 1;
+  }
+
+  & button[data-loading="false"] > i {
+    animation: 500ms fadeOut ease-out forwards;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    rotate: 180deg;
+  }
 }
 </style>

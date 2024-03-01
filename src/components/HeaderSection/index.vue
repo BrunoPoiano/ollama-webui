@@ -1,8 +1,9 @@
 
 <template>
   <header>
-    <div>
-      Ollama chat app
+    <div class="logo">
+      <OllamaLogo class="ollama-icon" />
+      <h5>Ollama chat app</h5>
     </div>
     <div class="menu">
       <Menu />
@@ -11,17 +12,33 @@
 </template>
 
 <script setup>
-import Menu from './components/Menu/index.vue';
+import OllamaLogo from "../icons/OllamaLogo.vue";
+import Menu from "./components/Menu/index.vue";
 </script>
 
 
 <style scoped>
 header {
-  position: relative;
-  padding: 20px 20px 0;
+
+
+  position: sticky;
+  top: 0;
+  
+  padding: 20px 20px;
   width: 100%;
   display: flex;
   gap: 20px;
   justify-content: space-between;
+
+  > .logo {
+    display: flex;
+    gap: 10px;
+    place-items: center;
+  }
+}
+
+.ollama-icon {
+  height: 2rem;
+  width: 2rem;
 }
 </style>
