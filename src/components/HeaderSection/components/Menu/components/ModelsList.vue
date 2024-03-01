@@ -19,12 +19,12 @@ const selectedModel = ref("");
 
 const ListModels = async () => {
   const modelsList = await ollama.list();
+  selectedModel.value = modelsList.models[0].model
   models.value = modelsList.models;
 };
 
 const handleSelectedModel = () => {
-  console.log("aqui selectedModel", selectedModel.value);
-  emit('selectedModelEmit', selectedModel.value);
+  localStorage.setItem("SELECTED_MODEL", selectedModel.value);
 };
 
 onMounted(() => {
