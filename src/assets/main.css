@@ -52,17 +52,17 @@ html {
 }
 
 body {
-  padding: 1rem;
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--neutral-color-80);
-  color: var(--neutral-color-30);
+  background: var(--neutral-color-75);
+  color: var(--neutral-color-20);
 }
 
 #app {
   display: grid;
   place-items: center;
+  display: relative;
 }
 
 code {
@@ -70,7 +70,12 @@ code {
     monospace;
 }
 
+header{
+  max-width: 130ch;
+}
+
 main {
+  padding: 2rem 1.5rem;
   display: grid;
   place-items:center;
   gap: 20px;
@@ -117,13 +122,15 @@ small {
 
 button{
   min-width: 60px;
+  width: fit-content;
   height: fit-content;
-  padding: 5px 10px;
+  padding: 8px 10px;
   cursor: pointer;
   
   font-size: var(--font-size-sm);
   font-weight: 600;
-  
+  color: var(--neutral-color-20);
+
   border-radius: var(--border-radius);
   border:none;
   outline: none;
@@ -146,6 +153,7 @@ select {
   font-size: var(--font-size-sm);
   font-weight: 600;
   cursor: pointer;
+  color: var(--neutral-color-20);
 
   border-right-width: 10px;
   border-radius: var(--border-radius);
@@ -173,9 +181,11 @@ input, textarea {
   outline: solid 1px var(--background-color);
 
   background: var(--background-color);
-  color: var(--neutral-color-40);
+  color: var(--neutral-color-20);
 }
 
 textarea {
   resize: vertical;
+  overflow-x: hidden;
+  transition: height 100ms ease;
 }

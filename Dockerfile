@@ -2,10 +2,10 @@ FROM node:16
 
 WORKDIR /usr/src/app
 
-COPY ./vueapp/package*.json ./
+COPY ./package*.json ./
 
 RUN npm install
 
-COPY ./vueapp .
+COPY . .
 
 CMD ["npm", "run", "dev"]
