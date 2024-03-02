@@ -1,13 +1,13 @@
 <template>
   <div class="menu-wrapper" :data-open="menuOpen">
     <div class="menu-toggle">
-      <button @click="toggleMenu" :data-open="menuOpen">
+      <button @click="toggleMenu" data-icon :data-open="menuOpen">
         <i class="fa-solid fa-angle-right"></i>
       </button>
     </div>
     <div class="app-menu">
-      <ModelsList />
-      <CreateModel />
+      <ModelsList v-if="menuOpen == true" />
+      <AppLinks />
       <ResponseData />
     </div>
   </div>
@@ -17,7 +17,7 @@
 import { ref } from "vue";
 import ModelsList from "./components/ModelsList.vue";
 import ResponseData from "./components/ResponseData.vue";
-import CreateModel from "./components/CreateModel.vue";
+import AppLinks from "./components/AppLinks.vue";
 
 const menuOpen = ref(false);
 
@@ -48,7 +48,7 @@ const toggleMenu = () => {
   background: none;
   --max-height: 0vh;
 
-  > .app-menu {
+  >.app-menu {
     display: none;
   }
 }
@@ -56,7 +56,7 @@ const toggleMenu = () => {
 .menu-toggle {
   display: flex;
   justify-content: end;
-  padding: 20px 20px 0 0;
+  padding: 0 20px 0 0;
 
   & button {
     --width: 2rem;
@@ -82,6 +82,9 @@ const toggleMenu = () => {
   gap: 20px;
   display: grid;
   place-items: baseline;
+
+  grid-template-rows: auto auto 1fr;
+
   height: 100%;
 }
 </style>
