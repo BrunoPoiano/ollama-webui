@@ -1,13 +1,16 @@
 <template>
   <div class="models-list">
-    <select v-model="selectedModel" @change="handleSelectedModel">
-      <option v-for="model in models" :key="model.model" :value="model.model">
-        {{ model.name }}
-      </option>
-    </select>
-    <button @click="ListModels" :data-loading="loading">
-      <i class="fa fa-refresh" aria-hidden="true"></i>
-    </button>
+    <label for="">Select a model</label>
+    <div>
+      <select v-model="selectedModel" @change="handleSelectedModel" aria-placeholder="Select a model">
+        <option v-for="model in models" :key="model.model" :value="model.model">
+          {{ model.name }}
+        </option>
+      </select>
+      <button @click="listModels" data-icon :data-loading="loading">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -20,7 +23,7 @@ const models = ref([]);
 const selectedModel = ref(localStorage.getItem("SELECTED_MODEL"));
 const loading = ref(false);
 
-const ListModels = async () => {
+const listModels = async () => {
   loading.value = true;
   const modelsList = await ollama.list();
   models.value = modelsList.models;
@@ -32,17 +35,25 @@ const handleSelectedModel = () => {
 };
 
 onMounted(() => {
-  ListModels();
+  listModels();
 });
 </script>
 
 <style>
 .models-list {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  place-items: center;
   gap: 20px;
+
+  display: grid;
+  gap: 10px;
+
+  >div {
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    gap: 10px;
+
+  }
 
   & button {
     --width: 2rem;
@@ -53,7 +64,7 @@ onMounted(() => {
     aspect-ratio: 1;
   }
 
-  & button[data-loading="false"] > i {
+  & button[data-loading="false"]>i {
     animation: 500ms fadeOut ease-out forwards;
   }
 }

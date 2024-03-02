@@ -2,12 +2,12 @@
 <template>
   <HeaderSection />
   <main>
-    <ChatSection @responseStatus="handleResponseStatus" />
+    <RouterView  @responseStatus="handleResponseStatus" />
   </main>
 </template>
 
 <script setup>
-import ChatSection from './pages/ChatSection/index.vue';
+import ChatSection from './views/ChatSection/index.vue';
 import HeaderSection from './components/HeaderSection/index.vue';
 import { provide, ref } from 'vue';
 
