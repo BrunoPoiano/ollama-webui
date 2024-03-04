@@ -6,10 +6,12 @@
     <dialog id="pullModel">
       <div class="dialog-wrapper">
         <button data-modal-close @click="closeModal"><i class="fa-solid fa-x"></i></button>
-
+        <h5>
+          Pull Model
+        </h5>
         <div class="search">
-          <input type="text" v-model="model">
-          <button @click="pullModel"> pull </button>
+          <input type="text" v-model="model" placeholder="Model name">
+          <button @click="pullModel"> Pull </button>
         </div>
 
         <div class="loading" v-if="loading">
