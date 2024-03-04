@@ -1,10 +1,8 @@
 <template>
+  <button @click="toggleMenu" data-icon :data-open="menuOpen">
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
   <div class="menu-wrapper" :data-open="menuOpen">
-    <div class="menu-toggle">
-      <button @click="toggleMenu" data-icon :data-open="menuOpen">
-        <i class="fa-solid fa-angle-right"></i>
-      </button>
-    </div>
     <div class="app-menu">
       <ModelsList v-if="menuOpen == true" />
       <AppLinks />
@@ -12,7 +10,7 @@
     </div>
   </div>
 </template>
-  
+
 <script setup>
 import { ref } from "vue";
 import ModelsList from "./components/ModelsList.vue";
@@ -25,11 +23,31 @@ const toggleMenu = () => {
   menuOpen.value = !menuOpen.value;
 };
 </script>
-  
+
 <style scoped>
+button {
+  position: relative;
+  --width: 2rem;
+  background: none;
+  font-size: 1.2rem;
+  padding: 0px;
+  width: var(--width);
+  min-width: var(--width);
+  aspect-ratio: 1;
+  z-index: 9;
+
+  & i {
+    transition: all 500ms ease;
+  }
+}
+
+button[data-open="false"] i {
+  rotate: 180deg;
+}
+
 .menu-wrapper {
   --max-width: min(100%, 350px);
-  
+
   position: absolute;
   top: 0;
   right: 0;
@@ -46,33 +64,10 @@ const toggleMenu = () => {
 }
 
 .menu-wrapper[data-open="false"] {
-  background: none;
+  display: none;
 
   >.app-menu {
     display: none;
-  }
-}
-
-.menu-toggle {
-  display: flex;
-  justify-content: end;
-
-  & button {
-    --width: 2rem;
-    background: none;
-    font-size: 1.2rem;
-    padding: 0px;
-    width: var(--width);
-    min-width: var(--width);
-    aspect-ratio: 1;
-
-    & i {
-      transition: all 500ms ease;
-    }
-  }
-
-  & button[data-open="false"] i {
-    rotate: 180deg;
   }
 }
 
@@ -83,6 +78,7 @@ const toggleMenu = () => {
 
   grid-template-rows: auto auto 1fr;
 
+  margin-top: 2rem;
   height: 100%;
 }
 </style>
