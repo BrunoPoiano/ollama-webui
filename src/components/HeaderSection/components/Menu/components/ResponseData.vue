@@ -3,10 +3,10 @@
     <h5>
       Last prompt data
     </h5>
-    <p>token/s: {{ tokenSecond }}s </p>
-    <p>generating the response: {{ totalDuration }}s</p>
-    <p>loading the model: {{ loadDuration }}s</p>
-    <p>evaluating the prompt: {{ promptEvalDuration }}s</p>
+    <p>Tokens per second: {{ tokenSecond }}s </p>
+    <p>Loading the model: {{ loadDuration }}s</p>
+    <p>Evaluating the prompt: {{ promptEvalDuration }}s</p>
+    <p>Generating the response: {{ totalDuration }}s</p>
   </div>
 
 </template>
@@ -59,5 +59,8 @@ export default {
 <style scoped>
 .responde-data{
   margin-top: auto;
+  & h5 {
+    margin-bottom: 4px;
+  }
 }
 </style>

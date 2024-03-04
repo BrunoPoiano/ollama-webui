@@ -5,6 +5,9 @@
     <dialog id="createModelModal">
       <div class="form">
         <button data-modal-close @click="closeModal"><i class="fa-solid fa-x"></i></button>
+        <h5>
+          Create Model
+        </h5>
         <div>
           <label for="">Model name</label>
           <input type="text" placeholder="Ex: Mario" v-model="form.name">
@@ -104,6 +107,11 @@ const disableCreateButton = computed(() => {
 .form {
   display: grid;
   gap: 10px;
+
+  >div{
+    display: grid;
+    gap: 5px;
+  }
 
   & select {
     max-width: 100%;

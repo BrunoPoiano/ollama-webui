@@ -14,7 +14,7 @@ html {
 :root {
 
   /* Main Primary color */
-  --base-color: hsla(0, 0%, 0%, 0.801);
+  --base-color: hsl(0, 0%, 0%);
   --mix-color: rgb(255, 255, 255);
   --danger-color: rgb(255, 0, 0);
   
@@ -65,7 +65,7 @@ body {
 #app {
   display: grid;
   place-items: center;
-  display: relative;
+  position: relative;
 }
 
 code {
@@ -133,7 +133,7 @@ dialog {
   max-width: 30rem;
   width: 100%;
 
-  background-color: var(--neutral-color-80);
+  background: var(--neutral-color-80);
   -webkit-box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
   -moz-box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
   box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
@@ -141,18 +141,18 @@ dialog {
   & button[data-modal-close]{
     background: none;
 
-    position: absolute;
+    width: 40px;
+    aspect-ratio: 1;
 
+    position: absolute;
     top: 5px;
     right:10px;
 
-    display: flex;
-    justify-self: end;
-    place-content: center;
+    display: grid;
+    place-items: center;
   }
-
-
 }
+
 
 button {
   min-width: 60px;

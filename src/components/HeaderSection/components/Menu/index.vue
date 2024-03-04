@@ -28,13 +28,14 @@ const toggleMenu = () => {
   
 <style scoped>
 .menu-wrapper {
-  --max-height: calc(100vh - 30px);
   --max-width: min(100%, 350px);
-
+  
   position: absolute;
+  top: 0;
   right: 0;
   width: var(--max-width);
-  height: var(--max-height);
+  height: 100vh;
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
@@ -46,7 +47,6 @@ const toggleMenu = () => {
 
 .menu-wrapper[data-open="false"] {
   background: none;
-  --max-height: 0vh;
 
   >.app-menu {
     display: none;
@@ -56,11 +56,10 @@ const toggleMenu = () => {
 .menu-toggle {
   display: flex;
   justify-content: end;
-  padding: 0 20px 0 0;
 
   & button {
     --width: 2rem;
-
+    background: none;
     font-size: 1.2rem;
     padding: 0px;
     width: var(--width);
@@ -78,7 +77,6 @@ const toggleMenu = () => {
 }
 
 .app-menu {
-  padding: 20px;
   gap: 20px;
   display: grid;
   place-items: baseline;
