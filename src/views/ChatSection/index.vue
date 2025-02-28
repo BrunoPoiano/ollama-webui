@@ -1,6 +1,10 @@
 <template>
   <section class="chat-box">
-    <ChatLog :content="conversation" />
+    <ChatLog
+      :content="conversation"
+      :selectedModel="selectedModel"
+      :selectedImage="selectedImage"
+    />
     <div v-if="waitingResponse">Waiting response</div>
     <div class="ui-elements">
       <textarea
@@ -10,7 +14,7 @@
         placeholder="Ask something!"
         v-model="prompt"
       />
-
+      <input type="file" accept="image/*" @change="handleFileChange" />
       <button v-if="generating" class="send-button" @click="abort()">
         Abort
       </button>
@@ -30,7 +34,7 @@
 import { onMounted, ref, provide, onBeforeUnmount } from "vue";
 import ChatLog from "./components/ChatLog.vue";
 import eventBus from "../../EventsBus";
-const ollama_end_point = import.meta.env.VITE_OLLAMA_END_POINT;
+const ollama_end_point = localStorage.getItem("OLLAMA_ENDPOINT");
 
 const emit = defineEmits(["responseStatus"]);
 const generating = ref(false);
@@ -41,42 +45,66 @@ const context = ref([]);
 const conversation = ref([]);
 const controller = ref(null);
 const currentReader = ref(null);
+const imageBase64 = ref(null);
+const selectedImage = ref(null);
 
 const cleatChatLog = () => {
+  abort();
   prompt.value = "";
   context.value = [];
   conversation.value = [];
+  imageBase64.value = null;
+};
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      selectedImage.value = reader.result;
+
+      imageBase64.value = reader.result
+        .replace("data:image/", "")
+        .replace("jpeg;base64,", "")
+        .replace("png;base64,", "");
+    };
+
+    reader.readAsDataURL(file);
+  } else {
+    alert("Please select an image file.");
+  }
 };
 
 const chat = async () => {
   selectedModel.value = localStorage.getItem("SELECTED_MODEL");
   if (!selectedModel.value) return;
   controller.value = new AbortController();
-  const form = [
-    {
-      role: "You",
-      message: prompt.value,
-    },
-    {
-      role: `Ollama (${selectedModel.value})`,
-      message: "",
-    },
-  ];
 
-  conversation.value.push(...form);
+  const msg = {
+    role: "user",
+    content: prompt.value,
+  };
+
+  if (imageBase64.value != null) {
+    msg.images = [imageBase64.value];
+  }
+
+  conversation.value.push(msg);
 
   const params = {
     model: selectedModel.value,
-    prompt: prompt.value,
+    messages: conversation.value,
     stream: true,
     context: context.value,
+    keep_alive: "10m",
   };
 
   prompt.value = "";
 
   try {
     waitingResponse.value = true;
-    const response = await fetch(`${ollama_end_point}/generate`, {
+    const response = await fetch(`${ollama_end_point}/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,11 +112,18 @@ const chat = async () => {
       body: JSON.stringify(params),
       signal: controller.value.signal,
     });
+
+    conversation.value.push({
+      role: "assistant",
+      content: "",
+    });
+
     waitingResponse.value = false;
 
     const reader = response.body.getReader();
     const index = conversation.value.length - 1;
     generating.value = true;
+
     await processStreamingResponse(reader, index);
   } catch (error) {
     if (error.name !== "AbortError") {
@@ -130,7 +165,7 @@ const processStreamingResponse = async (reader, index) => {
         if (line.trim()) {
           try {
             const part = JSON.parse(line);
-            conversation.value[index].message += part.response;
+            conversation.value[index].content += part.message.content;
 
             if (part.done) {
               emit("responseStatus", part);
@@ -184,10 +219,12 @@ onMounted(() => {
     this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
   });
+  eventBus.$on("modelChanged", cleatChatLog);
   eventBus.$on("cleanChat", cleatChatLog);
 });
 
 onBeforeUnmount(() => {
+  eventBus.$off("modelChanged", cleatChatLog);
   eventBus.$off("cleanChat", cleatChatLog);
 });
 </script>

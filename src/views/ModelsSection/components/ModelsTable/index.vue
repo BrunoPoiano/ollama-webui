@@ -22,7 +22,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import DeleteModel from "./components/DeleteModel.vue";
-const ollama_end_point = import.meta.env.VITE_OLLAMA_END_POINT;
+const ollama_end_point = localStorage.getItem("OLLAMA_ENDPOINT");
 
 const models = ref([]);
 

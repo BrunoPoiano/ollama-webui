@@ -1,17 +1,20 @@
 <template>
   <div class="app-links">
     <router-link to="/" :checked="router.fullPath === '/'">Chat</router-link>
-    <router-link to="/models" :checked="router.fullPath === '/models'" >Models</router-link>
+    <router-link to="/models" :checked="router.fullPath === '/models'"
+      >Models</router-link
+    >
   </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 const router = useRouter().currentRoute;
 </script>
 
 <style scoped>
 .app-links {
+  margin-top: 1rem;
   width: 100%;
   display: grid;
   gap: 20px;
@@ -25,7 +28,6 @@ const router = useRouter().currentRoute;
 
     text-transform: uppercase;
 
-
     &[checked="true"] {
       background: var(--neutral-color-70);
     }
@@ -34,7 +36,6 @@ const router = useRouter().currentRoute;
     :focus {
       background: var(--neutral-color-65);
     }
-
   }
 }
 </style>

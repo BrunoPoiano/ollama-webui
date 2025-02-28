@@ -4,7 +4,7 @@
   <Teleport to="body">
     <dialog id="createModelModal">
       <div class="form">
-        <button data-modal-close @click="closeModal">
+        <button data-btn-svg data-modal-close @click="closeModal">
           <i class="fa-solid fa-x"></i>
         </button>
         <h5>Create Model</h5>
@@ -52,7 +52,7 @@ import { computed, onMounted, ref } from "vue";
 
 const form = ref({});
 const models = ref([]);
-const ollama_end_point = import.meta.env.VITE_OLLAMA_END_POINT;
+const ollama_end_point = localStorage.getItem("OLLAMA_ENDPOINT");
 const controller = new AbortController();
 const emits = defineEmits(["refreshContent"]);
 

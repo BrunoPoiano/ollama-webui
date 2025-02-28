@@ -8,7 +8,7 @@
 
 html {
   hanging-punctuation: first last;
-  color-scheme: dark;
+  color-scheme: light dark;
 }
 
 :root {
@@ -17,6 +17,10 @@ html {
   --base-color: hsl(0, 0%, 0%);
   --mix-color: rgb(255, 255, 255);
   --danger-color: rgb(255, 0, 0);
+
+  --success: green;
+  --atention: orange;
+  --default: light-dark(#3a3aff, #3333ac);
 
   --danger-color-70: color-mix(
     in oklab,
@@ -225,11 +229,13 @@ dialog {
     aspect-ratio: 1;
 
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 10px;
 
     display: grid;
     place-items: center;
+    outline: none;
+    border: none;
   }
 }
 
@@ -309,4 +315,69 @@ textarea {
   resize: vertical;
   overflow-x: hidden;
   transition: height 100ms ease;
+}
+
+button {
+  color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
+  background: var(--bg);
+
+  cursor: pointer;
+  min-width: min(10ch, 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  outline: 1px solid light-dark(#d2d2d2, #4a4a4a);
+}
+form {
+  width: min(100%, 50ch);
+
+  input:not(:placeholder-shown):valid,
+  textarea:not(:placeholder-shown):valid,
+  select:not(:placeholder-shown):valid {
+    outline-color: var(--success);
+  }
+  input:not(:placeholder-shown):invalid,
+  textarea:not(:placeholder-shown):invalid,
+  select:not(:placeholder-shown):invalid {
+    outline-color: var(--danger);
+  }
+
+  input:focus:invalid,
+  textarea:focus:invalid,
+  select:focus:invalid {
+    outline-color: var(--default);
+  }
+
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    background: light-dark(#ececec, #00000026);
+  }
+
+  div {
+    display: grid;
+    gap: 0.5rem;
+
+    margin-bottom: 0.8rem;
+  }
+
+  .action {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    [type="submit"] {
+      --bg: var(--success);
+    }
+
+    [type="reset"] {
+      --bg: var(--atention);
+    }
+  }
+}
+
+[data-btn-svg] {
+  min-width: fit-content;
+  padding: 5px 8px;
 }

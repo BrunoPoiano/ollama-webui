@@ -1,10 +1,8 @@
 <template>
   <header>
-    <div>
-      <div class="logo">
-        <OllamaLogo class="ollama-icon" @click="CleanChat" />
-        <ModelsList />
-      </div>
+    <div class="logo">
+      <OllamaLogo class="ollama-icon" @click="CleanChat" />
+      <ModelsList />
     </div>
     <Menu />
   </header>
@@ -34,15 +32,13 @@ header {
   gap: 20px;
   justify-content: space-between;
 
-  div {
-    display: grid;
+  .logo {
+    width: min(100%, 25rem);
+
+    display: flex;
     gap: 10px;
-    .logo {
-      width: fit-content;
-      display: flex;
-      gap: 10px;
-      place-items: center;
-    }
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 

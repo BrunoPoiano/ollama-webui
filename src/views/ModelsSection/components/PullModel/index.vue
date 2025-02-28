@@ -4,7 +4,7 @@
   <Teleport to="body">
     <dialog id="pullModel">
       <div class="dialog-wrapper">
-        <button data-modal-close @click="closeModal">
+        <button data-btn-svg data-modal-close @click="closeModal">
           <i class="fa-solid fa-x"></i>
         </button>
         <h5>Pull Model</h5>

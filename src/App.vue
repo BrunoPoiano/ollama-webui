@@ -1,23 +1,22 @@
-
 <template>
   <HeaderSection />
   <main>
-    <RouterView  @responseStatus="handleResponseStatus" />
+    <RouterView @responseStatus="handleResponseStatus" />
   </main>
+  <OllamaEndPointModal />
 </template>
 
 <script setup>
-import ChatSection from './views/ChatSection/index.vue';
-import HeaderSection from './components/HeaderSection/index.vue';
-import { provide, ref } from 'vue';
+import HeaderSection from "./components/HeaderSection/index.vue";
+import OllamaEndPointModal from "./components/OllamaEndPointModal/index.vue";
+import { provide, ref } from "vue";
 
-const responseStatus = ref('')
-provide('responseStatus', responseStatus);
+const responseStatus = ref("");
+provide("responseStatus", responseStatus);
 
 const handleResponseStatus = (event) => {
-  responseStatus.value = event
-}
+  responseStatus.value = event;
+};
 </script>
-
 
 <style scoped></style>

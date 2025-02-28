@@ -1,6 +1,6 @@
 <template>
   <div class="menu" id="menu">
-    <button @click="toggleMenu" data-icon :data-open="menuOpen">
+    <button data-btn-svg @click="toggleMenu" data-icon :data-open="menuOpen">
       <i class="fa-solid fa-angle-right"></i>
     </button>
     <div class="menu-wrapper" :data-open="menuOpen">
@@ -95,7 +95,7 @@ button[data-open="false"] i {
   display: grid;
   place-items: baseline;
 
-  grid-template-rows: auto  1fr;
+  grid-template-rows: auto 1fr;
 
   margin-top: 2rem;
   height: 100%;

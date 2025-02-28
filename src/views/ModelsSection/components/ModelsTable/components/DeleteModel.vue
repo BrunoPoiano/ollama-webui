@@ -6,17 +6,15 @@
   <Teleport to="body">
     <dialog :id="`deleteModel${content.name}`">
       <div class="dialog-wrapper">
-        <button data-modal-close @click="closeModal"><i class="fa-solid fa-x"></i></button>
+        <button data-modal-close @click="closeModal">
+          <i class="fa-solid fa-x"></i>
+        </button>
 
         <h5>This action can not be reverted</h5>
 
         <div class="modal-actions">
-          <button @click="closeModal">
-            Cancel
-          </button>
-          <button class="delete" @click="deleteModel">
-            Delete
-          </button>
+          <button @click="closeModal">Cancel</button>
+          <button class="delete" @click="deleteModel">Delete</button>
         </div>
       </div>
     </dialog>
@@ -24,38 +22,40 @@
 </template>
 
 <script setup>
-
-const ollama_end_point = import.meta.env.VITE_OLLAMA_END_POINT
+const ollama_end_point = localStorage.getItem("OLLAMA_ENDPOINT");
 const props = defineProps(["content"]);
-const emits = defineEmits(['refreshContent'])
+const emits = defineEmits(["refreshContent"]);
 
 const closeModal = () => {
-  const deleteModel = document.getElementById(`deleteModel${props.content.name}`);
+  const deleteModel = document.getElementById(
+    `deleteModel${props.content.name}`,
+  );
   deleteModel.close();
 };
 
 const openModel = () => {
-  const deleteModel = document.getElementById(`deleteModel${props.content.name}`)
-  deleteModel.showModal()
-
-}
+  const deleteModel = document.getElementById(
+    `deleteModel${props.content.name}`,
+  );
+  deleteModel.showModal();
+};
 const deleteModel = async () => {
   try {
     const response = await fetch(`${ollama_end_point}/delete`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: props.content.model
-      })
+        name: props.content.model,
+      }),
     });
-    emits('refreshContent')
-    closeModal()
+    emits("refreshContent");
+    closeModal();
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
-}
+};
 </script>
 
 <style scoped>

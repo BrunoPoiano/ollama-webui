@@ -1,29 +1,28 @@
 <template>
   <div class="models-list">
-    <div>
-      <select
-        v-model="selectedModel"
-        @change="handleSelectedModel"
-        aria-placeholder="Select a model"
-      >
-        <option v-for="model in models" :key="model.model" :value="model.model">
-          {{ model.name }}
-        </option>
-      </select>
-      <button @click="listModels" data-icon :data-loading="loading">
-        <i class="fa fa-refresh" aria-hidden="true"></i>
-      </button>
-    </div>
+    <select
+      v-model="selectedModel"
+      @change="handleSelectedModel"
+      aria-placeholder="Select a model"
+    >
+      <option v-for="model in models" :key="model.model" :value="model.model">
+        {{ model.name }}
+      </option>
+    </select>
+    <button @click="listModels" data-icon :data-loading="loading">
+      <i class="fa fa-refresh" aria-hidden="true"></i>
+    </button>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref, defineEmits } from "vue";
-const ollama_end_point = import.meta.env.VITE_OLLAMA_END_POINT;
+const ollama_end_point = localStorage.getItem("OLLAMA_ENDPOINT");
 const emit = defineEmits(["selectedModelEmit"]);
 const models = ref([]);
 const selectedModel = ref(localStorage.getItem("SELECTED_MODEL"));
 const loading = ref(false);
+import eventBus from "../../../../../EventsBus";
 
 const listModels = async () => {
   loading.value = true;
@@ -43,6 +42,7 @@ const listModels = async () => {
 };
 
 const handleSelectedModel = () => {
+  eventBus.$emit("modelChanged", "");
   localStorage.setItem("SELECTED_MODEL", selectedModel.value);
 };
 
@@ -53,20 +53,19 @@ onMounted(() => {
 
 <style>
 .models-list {
-  width: max-content;
+  flex-grow: 1;
   gap: 20px;
 
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  justify-content: center;
+  place-items: center;
 
-  > div {
-    display: flex;
-    justify-content: center;
-    place-items: center;
-    gap: 10px;
+  select {
+    width: 80%;
   }
-
-  & button {
+  button {
     --width: 2rem;
     font-size: 1.2rem;
     padding: 0px;
@@ -75,7 +74,7 @@ onMounted(() => {
     aspect-ratio: 1;
   }
 
-  & button[data-loading="false"] > i {
+  button[data-loading="false"] > i {
     animation: 500ms fadeOut ease-out forwards;
   }
 }
