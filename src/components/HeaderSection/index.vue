@@ -3,6 +3,7 @@
     <div class="logo">
       <OllamaLogo class="ollama-icon" @click="CleanChat" />
       <ModelsList />
+      <ColorScheme />
     </div>
     <Menu />
   </header>
@@ -13,6 +14,7 @@ import eventBus from "../../EventsBus";
 import OllamaLogo from "../icons/OllamaLogo.vue";
 import ModelsList from "./components/Menu/components/ModelsList.vue";
 import Menu from "./components/Menu/index.vue";
+import ColorScheme from "../global/ColorScheme.vue";
 
 const CleanChat = () => {
   eventBus.$emit("cleanChat", "");
@@ -21,7 +23,7 @@ const CleanChat = () => {
 
 <style scoped>
 header {
-  background: var(--neutral-color-70);
+  background: var(--background-color);
 
   position: sticky;
   top: 0;
@@ -33,7 +35,7 @@ header {
   justify-content: space-between;
 
   .logo {
-    width: min(100%, 25rem);
+    width: min(100%, 30rem);
 
     display: flex;
     gap: 10px;

@@ -58,8 +58,13 @@ onMounted(() => {
 
 <style scoped>
 table {
-  border: 1px solid;
+  border: 1px solid light-dart(#373737, #f0f0f0);
+  color: light-dark(#000, #f0f0f0);
 
+  th,
+  td {
+    border-color: light-dart(#373737, #f0f0f0);
+  }
   & th:not(:last-child) {
     min-width: 20ch;
     padding: 10px;

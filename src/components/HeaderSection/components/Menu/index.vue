@@ -77,8 +77,10 @@ button[data-open="false"] i {
   flex-direction: column;
   gap: 20px;
 
+  color: var(--background-color-inverted);
+  outline: solid 1px #37373757;
   border-radius: var(--border-radius);
-  background: var(--neutral-color-75);
+  background: light-dark(#f9f9f9, #1b1a22);
   transition: display 500ms;
 }
 

@@ -24,17 +24,15 @@ const router = useRouter().currentRoute;
     padding: 15px 20px;
     display: block;
     text-decoration: none;
-    color: var(--neutral-color-15);
 
     text-transform: uppercase;
 
-    &[checked="true"] {
-      background: var(--neutral-color-70);
-    }
+    color: var(--background-color-inverted);
+    background: light-dark(#f9f9f9, #1b1a22);
 
     &:hover,
     :focus {
-      background: var(--neutral-color-65);
+      background: rgba(2, 2, 2, 0.24);
     }
   }
 }

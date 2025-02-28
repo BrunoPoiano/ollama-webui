@@ -49,15 +49,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#ollama-endpoint-modal::backdrop {
-  background: rgba(0, 0, 0, 0.14);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(11.3px);
-  -webkit-backdrop-filter: blur(11.3px);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-}
-
 form {
   input:not(:placeholder-shown):valid {
     outline-color: transparent;

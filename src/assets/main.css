@@ -14,6 +14,8 @@ html {
 :root {
   interpolate-size: allow-keywords;
   /* Main Primary color */
+  --background-color: light-dark(#fbfbfb, #1c1b22);
+  --background-color-inverted: light-dark(#1c1b22, #fbfbfb);
   --base-color: hsl(0, 0%, 0%);
   --mix-color: rgb(255, 255, 255);
   --danger-color: rgb(255, 0, 0);
@@ -88,11 +90,7 @@ html {
     var(--base-color) 65%,
     var(--mix-color)
   );
-  --neutral-color-70: color-mix(
-    in oklab,
-    var(--base-color) 70%,
-    var(--mix-color)
-  );
+
   --neutral-color-75: color-mix(
     in oklab,
     var(--base-color) 75%,
@@ -101,26 +99,6 @@ html {
   --neutral-color-80: color-mix(
     in oklab,
     var(--base-color) 80%,
-    var(--mix-color)
-  );
-  --neutral-color-85: color-mix(
-    in oklab,
-    var(--base-color) 85%,
-    var(--mix-color)
-  );
-  --neutral-color-90: color-mix(
-    in oklab,
-    var(--base-color) 90%,
-    var(--mix-color)
-  );
-  --neutral-color-95: color-mix(
-    in oklab,
-    var(--base-color) 95%,
-    var(--mix-color)
-  );
-  --neutral-color-100: color-mix(
-    in oklab,
-    var(--base-color) 100%,
     var(--mix-color)
   );
 
@@ -142,8 +120,19 @@ body {
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--neutral-color-70);
+  background: var(--background-color);
   color: var(--neutral-color-20);
+}
+
+think {
+  background: #00000030;
+  display: block;
+  padding: 0 20px 20px 20px;
+  border-radius: 20px;
+}
+
+think:has(> strong:empty) {
+  display: none;
 }
 
 #app {
@@ -206,6 +195,15 @@ small {
   color: var(--neutral-color-10);
 }
 
+i,
+svg {
+  color: var(--background-color-inverted) !important;
+  fill: var(--background-color-inverted) !important;
+  path {
+    fill: var(--background-color-inverted) !important;
+  }
+}
+
 dialog {
   padding: 45px 20px 20px;
   position: relative;
@@ -218,9 +216,6 @@ dialog {
   width: 100%;
 
   background: var(--neutral-color-80);
-  -webkit-box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
-  -moz-box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
-  box-shadow: 0px 0px 12px 0px var(--neutral-color-100);
 
   & button[data-modal-close] {
     background: none;
@@ -237,43 +232,18 @@ dialog {
     outline: none;
     border: none;
   }
-}
 
-button {
-  min-width: 60px;
-  width: fit-content;
-  height: fit-content;
-  padding: 8px 10px;
-  cursor: pointer;
-
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--neutral-color-20);
-  background: var(--neutral-color-60);
-
-  border-radius: var(--border-radius);
-  border: none;
-  outline: none;
-
-  transition: all 200ms ease;
-
-  &[data-icon] {
-    min-width: fit-content;
-    padding: 5px 10px;
-  }
-
-  &:hover:not(:disabled) {
-    scale: 1.2;
-  }
-
-  &:disabled {
-    opacity: 0.5;
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.14);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.3px);
+    -webkit-backdrop-filter: blur(11.3px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
   }
 }
 
 select {
-  --background-color: var(--neutral-color-85);
-
   max-width: 50ch;
   width: 100%;
   padding: 10px 15px;
@@ -285,11 +255,11 @@ select {
 
   border-right-width: 10px;
   border-radius: var(--border-radius);
-  border: 0px solid var(--background-color);
-  outline: solid 1px var(--background-color);
+  border: none;
+  outline: solid 1px #37373757;
 
-  background: var(--background-color);
-  color: var(--neutral-color-40);
+  background: light-dark(#fff, #0000003b);
+  color: var(--background-color-inverted);
 
   & option {
     margin-bottom: 5px;
@@ -298,17 +268,15 @@ select {
 
 input,
 textarea {
-  --background-color: var(--neutral-color-85);
-
   width: 100%;
   padding: 10px 15px;
   border-radius: var(--border-radius);
 
-  border: 0px solid var(--background-color);
-  outline: solid 1px var(--background-color);
+  border: none;
+  outline: solid 1px #37373757;
 
-  background: var(--background-color);
-  color: var(--neutral-color-20);
+  background: light-dark(#fff, #0000003b);
+  color: var(--background-color-inverted);
 }
 
 textarea {
@@ -318,16 +286,33 @@ textarea {
 }
 
 button {
-  color: lch(from var(--bg) calc((49.44 - l) * infinity) 0 0);
-  background: var(--bg);
-
+  color: light-dark(#000, #f0f0f0);
+  background: transparent;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
   cursor: pointer;
   min-width: min(10ch, 100%);
   padding: 0.5rem 1rem;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   border: none;
-  outline: 1px solid light-dark(#d2d2d2, #4a4a4a);
+  outline: 1px solid light-dark(#848484, #4a4a4a);
+  transition: all 200ms ease;
+
+  &[data-icon] {
+    min-width: fit-content;
+    padding: 5px 10px;
+    outline: none;
+  }
+
+  &:hover:not(:disabled) {
+    scale: 1.2;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
+
 form {
   width: min(100%, 50ch);
 
